@@ -46,6 +46,7 @@ public void scriptingSandbox(ScriptingSandboxFunctionArguments arg0) {
 	PIMCollection<Item> allItems=ctg.getItems();
 	for(Item oitem: allItems)
 	{
+		logger.logInfo("Testing Jenkins");
 		System.out.println(oitem.getPrimaryKey());
 		logger.logInfo(oitem.getPrimaryKey());
 		System.out.println(oitem.getAttributeValue("Automation_poc/Automation_Attrib_Desc"));	
