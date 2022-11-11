@@ -1,0 +1,240 @@
+Started by user Administrator
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on slave-01 in /home/appadmin/builds/workspace/workspace/PIM5Project
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Git Clone Stage)
+[Pipeline] git
+The recommended git tool is: NONE
+using credential gittest
+Fetching changes from the remote Git repository
+ > git rev-parse --resolve-git-dir /home/appadmin/builds/workspace/workspace/PIM5Project/.git # timeout=10
+ > git config remote.origin.url https://github.com/sivaprasadkmastech/PIM5Project.git # timeout=10
+Fetching upstream changes from https://github.com/sivaprasadkmastech/PIM5Project.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.37.3'
+using GIT_ASKPASS to set credentials gituser
+ > git fetch --tags --force --progress -- https://github.com/sivaprasadkmastech/PIM5Project.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 2cc2913c99d569e4cbf213228d73f59d14df8639 (refs/remotes/origin/main)
+Commit message: "commit"
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2cc2913c99d569e4cbf213228d73f59d14df8639 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main 2cc2913c99d569e4cbf213228d73f59d14df8639 # timeout=10
+ > git rev-list --no-walk 4b2c2761771f00dd81dd673f6181d234ec5e4003 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build copy Stage to local folder)
+[Pipeline] sh
++ scp /home/appadmin/builds/workspace/workspace/PIM5Project/automationtest.jar /home/appadmin/oldbuilds/PIM5Project/automationtest_1.16.0.jar
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Stage)
+[Pipeline] sshagent
+[ssh-agent] Using credentials appadmin (tomcatssh)
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-XXXXXXajCle7/agent.2184234
+SSH_AGENT_PID=2184237
+Running ssh-add (command line suppressed)
+Identity added: /home/appadmin/builds/workspace/workspace/PIM5Project@tmp/private_key_16667906495851831852.key (appadmin@chn-mit-jenkins02)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ scp -v -o StrictHostKeyChecking=no /home/appadmin/builds/workspace/workspace/PIM5Project/automationtest.jar root@10.100.15.41:/opt/IBM/MDM/jars/
+Executing: program /usr/bin/ssh host 10.100.15.41, user root, command sftp
+OpenSSH_8.8p1, OpenSSL 3.0.5 5 Jul 2022
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: Reading configuration data /etc/ssh/ssh_config.d/50-redhat.conf
+debug1: Reading configuration data /etc/crypto-policies/back-ends/openssh.config
+debug1: configuration requests final Match pass
+debug1: re-parsing configuration
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: Reading configuration data /etc/ssh/ssh_config.d/50-redhat.conf
+debug1: Reading configuration data /etc/crypto-policies/back-ends/openssh.config
+debug1: Connecting to 10.100.15.41 [10.100.15.41] port 22.
+debug1: Connection established.
+debug1: identity file /home/appadmin/.ssh/id_rsa type 0
+debug1: identity file /home/appadmin/.ssh/id_rsa-cert type -1
+debug1: identity file /home/appadmin/.ssh/id_dsa type -1
+debug1: identity file /home/appadmin/.ssh/id_dsa-cert type -1
+debug1: identity file /home/appadmin/.ssh/id_ecdsa type -1
+debug1: identity file /home/appadmin/.ssh/id_ecdsa-cert type -1
+debug1: identity file /home/appadmin/.ssh/id_ecdsa_sk type -1
+debug1: identity file /home/appadmin/.ssh/id_ecdsa_sk-cert type -1
+debug1: identity file /home/appadmin/.ssh/id_ed25519 type 3
+debug1: identity file /home/appadmin/.ssh/id_ed25519-cert type -1
+debug1: identity file /home/appadmin/.ssh/id_ed25519_sk type -1
+debug1: identity file /home/appadmin/.ssh/id_ed25519_sk-cert type -1
+debug1: identity file /home/appadmin/.ssh/id_xmss type -1
+debug1: identity file /home/appadmin/.ssh/id_xmss-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.8
+debug1: Remote protocol version 2.0, remote software version OpenSSH_6.6.1
+debug1: compat_banner: match: OpenSSH_6.6.1 pat OpenSSH_6.6.1* compat 0x04000002
+debug1: Authenticating to 10.100.15.41:22 as 'root'
+debug1: load_hostkeys: fopen /home/appadmin/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256@libssh.org
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: aes256-gcm@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: aes256-gcm@openssh.com MAC: <implicit> compression: none
+debug1: kex: curve25519-sha256@libssh.org need=32 dh_need=32
+debug1: kex: curve25519-sha256@libssh.org need=32 dh_need=32
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:83eaCpsMJR5cBCyB89/qG5QbqNhzMbf8s1e7OFHj6GQ
+debug1: load_hostkeys: fopen /home/appadmin/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: Host '10.100.15.41' is known and matches the ED25519 host key.
+debug1: Found key in /home/appadmin/.ssh/known_hosts:11
+debug1: rekey out after 4294967296 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 4294967296 blocks
+debug1: Will attempt key: /home/appadmin/.ssh/id_ed25519 ED25519 SHA256:K3k4I+6HcukCPxDtZyv2l7x20betLTzHIGfWZgM4X64 agent
+debug1: Will attempt key: /home/appadmin/.ssh/id_rsa RSA SHA256:HPpDJ9Pc3RrWmbHM04fUf1BkmuBmJNGNazaUSQ+ypmY
+debug1: Will attempt key: /home/appadmin/.ssh/id_dsa 
+debug1: Will attempt key: /home/appadmin/.ssh/id_ecdsa 
+debug1: Will attempt key: /home/appadmin/.ssh/id_ecdsa_sk 
+debug1: Will attempt key: /home/appadmin/.ssh/id_ed25519_sk 
+debug1: Will attempt key: /home/appadmin/.ssh/id_xmss 
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
+debug1: Next authentication method: gssapi-with-mic
+debug1: No credentials were supplied, or the credentials were unavailable or inaccessible
+No Kerberos credentials available (default cache: KCM:)
+
+
+debug1: No credentials were supplied, or the credentials were unavailable or inaccessible
+No Kerberos credentials available (default cache: KCM:)
+
+
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/appadmin/.ssh/id_ed25519 ED25519 SHA256:K3k4I+6HcukCPxDtZyv2l7x20betLTzHIGfWZgM4X64 agent
+debug1: Server accepts key: /home/appadmin/.ssh/id_ed25519 ED25519 SHA256:K3k4I+6HcukCPxDtZyv2l7x20betLTzHIGfWZgM4X64 agent
+Authenticated to 10.100.15.41 ([10.100.15.41]:22) using "publickey".
+debug1: pkcs11_del_provider: called, provider_id = (null)
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: filesystem full
+debug1: Sending environment.
+debug1: channel 0: setting env LANG = "en_IN.UTF-8"
+debug1: Sending subsystem: sftp
+debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+debug1: channel 0: free: client-session, nchannels 1
+Transferred: sent 5760, received 2596 bytes, in 0.2 seconds
+Bytes per second: sent 30654.5, received 13815.8
+debug1: Exit status 0
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 2184237 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Service Stop and start Stage)
+[Pipeline] sh
++ pwd
+/home/appadmin/builds/workspace/workspace/PIM5Project
+[Pipeline] sh
++ /home/appadmin/builds/workspace/workspace/PIM5Project/test.sh
+Pseudo-terminal will not be allocated because stdin is not a terminal.
+/opt/IBM/MDM/bin/go
+Stopping service queuemanager_IPMSALLY... 
+Stopping service workflowengine_IPMSALLY... 
+Stopping service scheduler_IPMSALLY... 
+Stopping service admin_IPMSALLY... 
+Stopping service appsvr_IPMSALLY... 
+Stopping service eventprocessor_IPMSALLY... 
+Stopping service rmi_IPMSALLY... 
+
+
+STOPPING DASHBOARDS SERVICE
+===========================
+Derby is not running..
+
+--------------------------------------
+
+Validating config file '/opt/IBM/MDM/bin/conf/env_settings.ini'...OK
+Checking service definitions..OK
+Configured for db type: db2
+Configured for app server type: websphere
+INFO: Copying /opt/IBM/MDM/etc/default/websphere/ccd_sso.jar to /opt/IBM/MDM/jars/
+Determining classpath..
+
+Jar file /opt/IBM/WebSphere/AppServer/java/jre/lib/xml.jar not found - did you rebuild anttasks?
+
+done
+Determining preload classpath..done
+Generating flow-config.xml file
+	There are no changes in the /opt/IBM/MDM/etc/default/flow-config.default.xml and /opt/IBM/MDM/etc/default/flow-config.xml files.
+Generating common.properties file(s)
+	Configuring for ent_install mode
+	app server 'appsvr_IPMSALLY', port=7507
+	etc dir=/opt/IBM/MDM/etc/default
+	location=/opt/IBM/MDM/etc/default/common.properties
+	Updating existing file
+	/opt/IBM/MDM/etc/default/common.properties exists.  Overwrite? (y/n) 
+INFO: GDS component is disabled, skipping GDS specific configuration.
+Generating configuration files for logging
+	log dir: /opt/IBM/MDM/logs
+	Generating log.xml
+	/opt/IBM/MDM/etc/default/log.xml exists.  Overwrite? (y/n) 	Generating log_cbe.xml
+	/opt/IBM/MDM/etc/default/log_cbe.xml exists.  Overwrite? (y/n) 	Generating log_cbe_pattern.xml
+	/opt/IBM/MDM/etc/default/log_cbe_pattern.xml exists.  Overwrite? (y/n) Configuring env
+Checking suppliers directory: creating
+Generating properties file for data entry
+	/opt/IBM/MDM/etc/default/data_entry_properties.xml exists.  Overwrite? (y/n) Generating properties files for spell service
+	/opt/IBM/MDM/etc/default/plugins/wintertree/spellservice.properties exists.  Overwrite? (y/n) Generating config files for cache system
+	/opt/IBM/MDM/etc/default/mdm-ehcache-config.xml exists.  Overwrite? (y/n) Check Java class
+	/opt/IBM/MDM/etc/default/db.xml exists.  Overwrite? (y/n) Generating /opt/IBM/MDM/bin/compat.sh
+
+Updating existing file
+/opt/IBM/MDM/etc/default/mass-edit/config/mass-edit.properties exists.  Overwrite? (y/n) 
+Properties in the file /opt/IBM/MDM/etc/default/mass-edit/config/mass-edit.properties are not updated. Please update the file manually.
+
+Updating existing file
+/opt/IBM/MDM/mdmui/dynamic/mdmrest/restConfig.properties exists.  Overwrite? (y/n) 
+Properties in the file /opt/IBM/MDM/mdmui/dynamic/mdmrest/restConfig.properties are not updated. Please update the file manually.
+
+Updating existing file
+/opt/IBM/MDM/mdmui/dynamic/mdmui/config.json exists.  Overwrite? (y/n) 
+Properties in the file /opt/IBM/MDM/mdmui/dynamic/mdmui/config.json are not updated. Please update the file manually.
+Generating config files for cache system
+	/opt/IBM/MDM/mdmui/dynamic/mdmrest/mdm-rest-cache-config.xml exists.  Overwrite? (y/n) IPM configuration completed
+-------------------------------
+
+
+Jar file /opt/IBM/WebSphere/AppServer/java/jre/lib/xml.jar not found - did you rebuild anttasks?
+
+Removing contents of logs directory
+Running service pre-start checks
+Starting service rmi_IPMSALLY...  started, PID is 29161
+Starting service scheduler_IPMSALLY...  started, PID is 29183
+Starting service eventprocessor_IPMSALLY...  started, PID is 29206
+Starting service admin_IPMSALLY...  started, PID is 29229
+Starting service workflowengine_IPMSALLY...  started, PID is 29251
+Starting service appsvr_IPMSALLY... Class path for MDMPIM app server 'ipmserver' has changed since last start.  Updating...
+ started, PID is 29879
+Starting service queuemanager_IPMSALLY...  started, PID is 30225
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
