@@ -1,0 +1,104 @@
+[root@ipmsally go]# ./stop_local.sh
+Stopping service scheduler_IPMSALLY...
+Stopping service queuemanager_IPMSALLY...
+Stopping service admin_IPMSALLY...
+Stopping service workflowengine_IPMSALLY...
+Stopping service eventprocessor_IPMSALLY...
+Stopping service appsvr_IPMSALLY...
+Stopping service rmi_IPMSALLY...
+
+
+STOPPING DASHBOARDS SERVICE
+===========================
+Derby is not running..
+
+--------------------------------------
+
+[root@ipmsally go]# cd ..
+[root@ipmsally bin]# ./co
+compat.sh                 conf/                     configureEnv.sh           copy_files_for_appsvr.sh
+[root@ipmsally bin]# ./configureEnv.sh
+Validating config file '/opt/IBM/MDM/bin/conf/env_settings.ini'...OK
+Checking service definitions..OK
+Configured for db type: db2
+Configured for app server type: websphere
+INFO: Copying /opt/IBM/MDM/etc/default/websphere/ccd_sso.jar to /opt/IBM/MDM/jars/
+Determining classpath..
+
+Jar file /opt/IBM/WebSphere/AppServer/java/jre/lib/xml.jar not found - did you rebuild anttasks?
+
+done
+Determining preload classpath..done
+Generating flow-config.xml file
+        There are no changes in the /opt/IBM/MDM/etc/default/flow-config.default.xml and /opt/IBM/MDM/etc/default/flow-config.xml files.
+Generating common.properties file(s)
+        Configuring for ent_install mode
+        app server 'appsvr_IPMSALLY', port=7507
+        etc dir=/opt/IBM/MDM/etc/default
+        location=/opt/IBM/MDM/etc/default/common.properties
+        Updating existing file
+        /opt/IBM/MDM/etc/default/common.properties exists.  Overwrite? (y/n) n
+
+INFO: GDS component is disabled, skipping GDS specific configuration.
+Generating configuration files for logging
+        log dir: /opt/IBM/MDM/logs
+        Generating log.xml
+        /opt/IBM/MDM/etc/default/log.xml exists.  Overwrite? (y/n) n
+        Generating log_cbe.xml
+        /opt/IBM/MDM/etc/default/log_cbe.xml exists.  Overwrite? (y/n) n
+        Generating log_cbe_pattern.xml
+        /opt/IBM/MDM/etc/default/log_cbe_pattern.xml exists.  Overwrite? (y/n) n
+Configuring env
+Checking suppliers directory: creating
+Generating properties file for data entry
+        /opt/IBM/MDM/etc/default/data_entry_properties.xml exists.  Overwrite? (y/n) n
+Generating properties files for spell service
+        /opt/IBM/MDM/etc/default/plugins/wintertree/spellservice.properties exists.  Overwrite? (y/n) n
+Generating config files for cache system
+        /opt/IBM/MDM/etc/default/mdm-ehcache-config.xml exists.  Overwrite? (y/n) n
+Check Java class
+        /opt/IBM/MDM/etc/default/db.xml exists.  Overwrite? (y/n) n
+Generating /opt/IBM/MDM/bin/compat.sh
+
+Updating existing file
+/opt/IBM/MDM/etc/default/mass-edit/config/mass-edit.properties exists.  Overwrite? (y/n) n
+
+Properties in the file /opt/IBM/MDM/etc/default/mass-edit/config/mass-edit.properties are not updated. Please update the file manually.
+
+Updating existing file
+/opt/IBM/MDM/mdmui/dynamic/mdmrest/restConfig.properties exists.  Overwrite? (y/n) n
+
+Properties in the file /opt/IBM/MDM/mdmui/dynamic/mdmrest/restConfig.properties are not updated. Please update the file manually.
+
+Updating existing file
+/opt/IBM/MDM/mdmui/dynamic/mdmui/config.json exists.  Overwrite? (y/n) n
+
+Properties in the file /opt/IBM/MDM/mdmui/dynamic/mdmui/config.json are not updated. Please update the file manually.
+Generating config files for cache system
+        /opt/IBM/MDM/mdmui/dynamic/mdmrest/mdm-rest-cache-config.xml exists.  Overwrite? (y/n) n
+IPM configuration completed
+-------------------------------
+
+[root@ipmsally bin]# chmod 777 compat.sh
+[root@ipmsally bin]# ./compat.sh
+[root@ipmsally bin]# ./updateRtClasspath.sh
+
+Jar file /opt/IBM/WebSphere/AppServer/java/jre/lib/xml.jar not found - did you rebuild anttasks?
+
+[root@ipmsally bin]# cd g
+gdsmsg_localized.sh  gdsmsg.sh            get_ccd_version.sh   get_params.sh        go/
+[root@ipmsally bin]# cd go/
+[root@ipmsally go]# ./st
+start_local_rmlogs.sh    start_local.sh           start_rmi_and_appsvr.sh  stop_local.sh
+[root@ipmsally go]# ./start_local_rmlogs.sh
+Removing contents of logs directory
+Running service pre-start checks
+Starting service rmi_IPMSALLY...  started, PID is 23907
+Starting service scheduler_IPMSALLY...  started, PID is 23929
+Starting service workflowengine_IPMSALLY...  started, PID is 23945
+Starting service admin_IPMSALLY...  started, PID is 23973
+Starting service queuemanager_IPMSALLY...  started, PID is 23993
+Starting service appsvr_IPMSALLY... Class path for MDMPIM app server 'ipmserver' has changed since last start.  Updating...
+ started, PID is 24615
+Starting service eventprocessor_IPMSALLY...  started, PID is 24965
+[root@ipmsally go]#
