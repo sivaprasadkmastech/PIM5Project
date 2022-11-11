@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Git Clone Stage') {
+            steps {
+                git branch: 'main', credentialsId: 'gittest', url: 'https://github.com/sivaprasadkmastech/PIM5Project.git'
+            }
+        }
+        stage('Build copy Stage to local folder') {
+            steps {
+                // sh "scp /home/appadmin/builds/workspace/Copywar/simple/target/simple.war /home/appadmin/oldbuilds/Copywar/" //
+                // sh 'scp /home/appadmin/builds/workspace/Copywar/simple/target/simple.war /home/appadmin/oldbuilds/Copywar/simple_"$(date +%d-%m-%Y_%H:%M:%S)".war' //
+                sh 'scp /home/appadmin/builds/workspace/workspace/PIM5Project/automationtest.jar /home/appadmin/oldbuilds/PIM5Project/automationtest_1."${BUILD_NUMBER}".0.jar'
+            }
+        }
+        stage('Deploy Stage') {
+          steps {
+            sshagent(['tomcatssh']) {
+            sh "scp -v -o StrictHostKeyChecking=no /home/appadmin/builds/workspace/workspace/PIM5Project/automationtest.jar root@10.100.15.41:/opt/IBM/MDM/jars/"
+              } 
+           }
+        }
+        stage('Service Stop and start Stage') {
+          steps {
+            sh "pwd"  
+            sh "/home/appadmin/builds/workspace/workspace/PIM5Project/test.sh"
+            }
+        }
+    }
+}
